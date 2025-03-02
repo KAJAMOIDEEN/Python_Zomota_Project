@@ -1,0 +1,188 @@
+Step 4: Conducting Analysis with SQL Queries
+You should create 20 SQL queries for analysis. Here are some sample queries that align with your business use cases:
+
+Identify peak ordering times.
+SELECT 
+    EXTRACT(HOUR FROM order_time) AS order_hour,
+    COUNT(*) AS order_count
+FROM 
+    orders
+GROUP BY 
+    order_hour
+ORDER BY 
+    order_hour;
+Count of deliveries by status (Pending, Delivered, Cancelled).
+SELECT 
+    delivery_status,
+    COUNT(*) AS count
+FROM 
+    deliveries
+GROUP BY 
+    delivery_status;
+Top customers by total orders.
+SELECT 
+    customer_id,
+    COUNT(*) AS total_orders
+FROM 
+    orders
+GROUP BY 
+    customer_id
+ORDER BY 
+    total_orders DESC
+LIMIT 10;
+Average order value per restaurant.
+SELECT 
+    restaurant_id,
+    AVG(order_value) AS average_order_value
+FROM 
+    orders
+GROUP BY 
+    restaurant_id;
+Frequency of orders per cuisine type.
+SELECT 
+    cuisine_type,
+    COUNT(*) AS order_count
+FROM 
+    restaurants
+JOIN 
+    orders ON restaurants.restaurant_id = orders.restaurant_id
+GROUP BY 
+    cuisine_type;
+Tracking delivery delays (orders delivered late).
+SELECT 
+    order_id,
+    delivery_time,
+    expected_delivery_time,
+    CASE 
+        WHEN delivery_time > expected_delivery_time THEN 'Late'
+        ELSE 'On Time'
+    END AS delivery_status
+FROM 
+    deliveries;
+Identify the average delivery time by restaurants.
+SELECT 
+    restaurant_id,
+    AVG(EXTRACT(EPOCH FROM (delivery_time - order_time)) / 60) AS average_delivery_time_minutes
+FROM 
+    deliveries
+JOIN 
+    orders ON deliveries.order_id = orders.order_id
+GROUP BY 
+    restaurant_id;
+Top 5 most popular restaurants.
+SELECT 
+    restaurant_id,
+    COUNT(*) AS order_count
+FROM 
+    orders
+GROUP BY 
+    restaurant_id
+ORDER BY 
+    order_count DESC
+LIMIT 5;
+Average rating per restaurant.
+SELECT 
+    restaurant_id,
+    AVG(rating) AS average_rating
+FROM 
+    reviews
+GROUP BY 
+    restaurant_id;
+Daily order count trends.
+SELECT 
+    DATE(order_time) AS order_date,
+    COUNT(*) AS order_count
+FROM 
+    orders
+GROUP BY 
+    order_date
+ORDER BY 
+    order_date;
+Most common payment modes used.
+SELECT 
+    payment_mode,
+    COUNT(*) AS count
+FROM 
+    orders
+GROUP BY 
+    payment_mode
+ORDER BY 
+    count DESC;
+Count of premium vs standard customers.
+SELECT 
+    customer_type,
+    COUNT(*) AS count
+FROM 
+    customers
+GROUP BY 
+    customer_type;
+Delivery performance metrics based on time taken.
+SELECT
+    delivery_personnel_id,
+    AVG(EXTRACT(EPOCH FROM (delivery_time - order_time)) / 60) AS average_delivery_time_minutes,
+    COUNT(*) AS total_deliveries
+FROM 
+    deliveries
+GROUP BY 
+    delivery_personnel_id;
+Average discount applied by customers.
+SELECT 
+    customer_id,
+    AVG(discount) AS average_discount
+FROM 
+    orders
+GROUP BY 
+    customer_id;
+Customer order patterns (average orders per month).
+SELECT 
+    customer_id,
+    COUNT(*) / COUNT(DISTINCT DATE_TRUNC('month', order_time)) AS average_orders_per_month
+FROM 
+    orders
+GROUP BY 
+    customer_id;
+Count of active restaurants.
+SELECT 
+    COUNT(*) AS active_restaurant_count
+FROM 
+    restaurants
+WHERE 
+    status = 'active';
+Rating trends over time.
+SELECT 
+    DATE(rating_date) AS rating_date,
+    AVG(rating) AS average_rating
+FROM 
+    reviews
+GROUP BY 
+    rating_date
+ORDER BY 
+    rating_date;
+Total deliveries by delivery personnel.
+SELECT 
+    delivery_personnel_id,
+    COUNT(*) AS total_deliveries
+FROM 
+    deliveries
+GROUP BY 
+    delivery_personnel_id;
+Total number of orders by cuisine.
+SELECT 
+    cuisine_type,
+    COUNT(*) AS total_orders
+FROM 
+    restaurants
+JOIN 
+    orders ON restaurants.restaurant_id = orders.restaurant_id
+GROUP BY 
+    cuisine_type;
+Handling feedback ratings by date.
+SELECT 
+    DATE(feedback_date) AS feedback_date,
+    AVG(rating) AS average_feedback_rating
+FROM 
+    feedback
+GROUP BY 
+    feedback_date
+ORDER BY 
+    feedback_date;

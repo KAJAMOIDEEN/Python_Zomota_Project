@@ -1,0 +1,69 @@
+Step 2: Database Design
+Using MySQL Server, create tables as per your specifications. Here's an example SQL script for creating these tables.
+
+SQL Table Creation Script
+
+CREATE TABLE Customers (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    phone VARCHAR(20),
+    location VARCHAR(255),
+    signup_date DATETIME,
+    is_premium BOOLEAN,
+    preferred_cuisine VARCHAR(50),
+    total_orders INT DEFAULT 0,
+    average_rating FLOAT DEFAULT 0
+);
+
+CREATE TABLE Restaurants (
+    restaurant_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    cuisine_type VARCHAR(50),
+    location VARCHAR(255),
+    owner_name VARCHAR(255),
+    average_delivery_time INT,
+    contact_number VARCHAR(20),
+    rating FLOAT DEFAULT 0,
+    total_orders INT DEFAULT 0,
+    is_active BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE Orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT,
+    restaurant_id INT,
+    order_date DATETIME,
+    delivery_time DATETIME,
+    status ENUM('Pending', 'Delivered', 'Cancelled'),
+    total_amount DECIMAL(10, 2),
+    payment_mode ENUM('Credit Card', 'Cash', 'UPI'),
+    discount_applied DECIMAL(10, 2),
+    feedback_rating FLOAT,
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
+    FOREIGN KEY (restaurant_id) REFERENCES Restaurants(restaurant_id)
+);
+
+CREATE TABLE Deliveries (
+    delivery_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    delivery_person_id INT,
+    delivery_status ENUM('On the way', 'Delivered'),
+    distance FLOAT,
+    delivery_time INT,
+    estimated_time INT,
+    delivery_fee DECIMAL(10, 2),
+    vehicle_type ENUM('Bike', 'Car'),
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id)
+);
+
+-- Delivery Persons Optional Table
+CREATE TABLE Delivery_Persons (
+    delivery_person_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    contact_number VARCHAR(20),
+    vehicle_type ENUM('Bike', 'Car'),
+    total_deliveries INT DEFAULT 0,
+    average_rating FLOAT DEFAULT 0,
+    location VARCHAR(255)
+);

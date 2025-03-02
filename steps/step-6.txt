@@ -1,0 +1,17 @@
+Step 6: Documentation
+Ensure you document your code and project. Write clear instructions on how to set up the database, run the Streamlit app, and what insights can be derived from the data.
+
+Running The Project
+Start your MySQL server and create the database.
+Run the dataset generation script to populate CSV files.
+Import the CSV files into the respective tables in your SQL database.
+Launch the Streamlit app using:
+
+streamlit run your_streamlit_app.py
+
+
+Version Control & Error Handling
+Use Git to version control your codebase.
+Implement error handling in your database execution methods to catch exceptions.
+Final Touches
+Complete the project and optimize performance. Use meaningful comments and ensure your code follows PEP 8 standards.
