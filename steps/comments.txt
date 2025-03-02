@@ -1,1 +1,17 @@
 pip install faker mysql-connector-python pandas sqlalchemy streamlit matplotlib seaborn
+
+python -m venv venv
+
+
+venv\Scripts\activate
+
+streamlit run app.py
+
+
+Git Hub Upload:
+cd path/to/your/project    # Navigate to your project directory
+git init                    # Initialize a new Git repository
+git add .                   # Add all files to staging
+git commit -m "Initial commit"  # Commit changes
+git remote add origin <repository-url>  # Add remote repository
+git push -u origin master   # Push changes to remote repository
