@@ -10,8 +10,3 @@ Launch the Streamlit app using:
 streamlit run your_streamlit_app.py
 
 
-Version Control & Error Handling
-Use Git to version control your codebase.
-Implement error handling in your database execution methods to catch exceptions.
-Final Touches
-Complete the project and optimize performance. Use meaningful comments and ensure your code follows PEP 8 standards.
